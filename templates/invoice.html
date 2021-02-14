@@ -19,10 +19,10 @@
                                     style="width:100%; max-width:300px;">
                             </td>
 
-                            <td>
-                                Invoice #: 123<br>
-                                Created: January 1, 2015<br>
-                                Due: February 1, 2015
+                            <td class="invoice-time">
+                                Invoice #: {{invoice_number}}<br>
+                                Created: {{today}}<br>
+                                Due: {{duedate}}
                             </td>
                         </tr>
                     </table>
@@ -34,15 +34,15 @@
                     <table>
                         <tr>
                             <td>
-                                Sparksuite, Inc.<br>
-                                12345 Sunny Road<br>
-                                Sunnyville, CA 12345
+                                {{from_address['company_name']}}<br>
+                                {{from_address['addr1']}}<br>
+                                {{from_address['addr2']}}
                             </td>
 
                             <td>
-                                Acme Corp.<br>
-                                John Doe<br>
-                                john@example.com
+                                {{to_address['client_name']}}<br>
+                                {{to_address['addr1']}}<br>
+                                {{to_address['addr2']}}
                             </td>
                         </tr>
                     </table>
@@ -78,42 +78,21 @@
                     Price
                 </td>
             </tr>
-
+            {%for item in items%}
             <tr class="item">
                 <td>
-                    Website design
+                    {{item['name']}}
                 </td>
 
                 <td>
-                    $300.00
+                    {{item['charge']}}
                 </td>
             </tr>
-
-            <tr class="item">
-                <td>
-                    Hosting (3 months)
-                </td>
-
-                <td>
-                    $75.00
-                </td>
-            </tr>
-
-            <tr class="item last">
-                <td>
-                    Domain name (1 year)
-                </td>
-
-                <td>
-                    $10.00
-                </td>
-            </tr>
-
+            {%endfor%}
             <tr class="total">
                 <td></td>
-
                 <td>
-                    Total: $385.00
+                    Total: ${{total}}
                 </td>
             </tr>
         </table>
