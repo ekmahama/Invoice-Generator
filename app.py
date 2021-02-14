@@ -38,14 +38,18 @@ def invoice_generator():
     ]
     total = sum([i['charge'] for i in items])
 
-    return render_template('invoice.html',
-                           today=today.strftime("%B %-d, %Y"),
-                           duedate=duedate.strftime("%B %-d, %Y"),
-                           invoice_number=invoice_number,
-                           from_address=from_address,
-                           to_address=to_address,
-                           items=items,
-                           total=total)
+    rendered = render_template('invoice.html',
+                               today=today.strftime("%B %-d, %Y"),
+                               duedate=duedate.strftime("%B %-d, %Y"),
+                               invoice_number=invoice_number,
+                               from_address=from_address,
+                               to_address=to_address,
+                               items=items,
+                               total=total)
+
+    html = HTML(string=rendered)
+    rendered_pdf = html.write_pdf('./static/invoice.pdf')
+    return send_file('./static/invoice.pdf')
 
 
 if __name__ == '__main__':
